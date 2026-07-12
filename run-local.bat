@@ -18,14 +18,16 @@ if %errorlevel% neq 0 (
 echo [INFO] Node.js environment detected.
 echo.
 
-:: 2. Install dependencies if node_modules folder doesn't exist
-if not exist "node_modules\" (
-    echo [INFO] node_modules folder is missing. Running 'npm install' to get dependencies...
+:: 2. Install dependencies if node_modules folder doesn't exist inside frontend/
+if not exist "frontend\node_modules\" (
+    echo [INFO] frontend\node_modules folder is missing. Running 'npm install' inside 'frontend'...
     echo This may take a minute or two...
+    cd frontend
     call npm install
+    cd ..
     if %errorlevel% neq 0 (
         echo.
-        echo [ERROR] 'npm install' failed to download dependencies. Check your connection.
+        echo [ERROR] 'npm install' failed inside 'frontend'. Check your connection.
         pause
         exit /b 1
     )
@@ -46,6 +48,7 @@ echo.
 start "" http://localhost:5173
 
 :: Start the dev command
+cd frontend
 call npm run dev
 
 pause

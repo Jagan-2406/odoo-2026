@@ -1,14 +1,16 @@
-import { departmentService } from './mock/department.mock';
-import { employeeService } from './mock/employee.mock';
-import { carbonService } from './mock/carbon.mock';
-import { csrService } from './mock/csr.mock';
-import { challengeService } from './mock/challenge.mock';
-import { gamificationService } from './mock/gamification.mock';
-import { governanceService } from './mock/governance.mock';
-import { settingsService } from './mock/settings.mock';
-import { reportsService } from './mock/reports.mock';
-import { notificationService } from './mock/notification.mock';
-import { dashboardService } from './mock/dashboard.mock';
+import {
+  departmentService,
+  employeeService,
+  carbonService,
+  csrService,
+  challengeService,
+  gamificationService,
+  governanceService,
+  settingsService,
+  reportsService,
+  notificationService,
+  dashboardService,
+} from './supabase/supabaseServices';
 
 /**
  * Service Registry

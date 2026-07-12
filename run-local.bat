@@ -8,8 +8,8 @@ echo.
 :: 1. Verify Node.js is installed
 where node >nul 2>nul
 if %errorlevel% neq 0 (
-    echo [ERROR] Node.js is not found in your system's PATH.
-    echo Please install Node.js (v18 or higher) from https://nodejs.org/ before running.
+    echo [ERROR] Node.js is not found in your system PATH.
+    echo Please install Node.js v18 or higher from https://nodejs.org before running.
     echo.
     pause
     exit /b 1

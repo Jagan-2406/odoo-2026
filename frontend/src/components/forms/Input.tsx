@@ -106,24 +106,41 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             {label}
           </label>
         )}
-        <select
-          ref={ref}
-          disabled={disabled}
-          className={twMerge(
-            clsx(
-              'w-full h-10 px-3 py-2 bg-background border border-border text-sm rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background appearance-none cursor-pointer',
-              error && 'border-red-500 focus-visible:ring-red-500'
-            ),
-            className
-          )}
-          {...props}
-        >
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-zinc-950 text-zinc-50">
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            ref={ref}
+            disabled={disabled}
+            className={twMerge(
+              clsx(
+                'w-full h-10 pl-3 pr-10 py-2 bg-background border border-border text-sm rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background appearance-none cursor-pointer',
+                error && 'border-red-500 focus-visible:ring-red-500'
+              ),
+              className
+            )}
+            {...props}
+          >
+            {options.map((opt) => (
+              <option key={opt.value} value={opt.value} className="bg-zinc-950 text-zinc-50">
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400">
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </div>
         {error && <span className="text-xs text-red-500">{error}</span>}
       </div>
     );

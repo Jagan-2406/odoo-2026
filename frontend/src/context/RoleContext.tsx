@@ -17,11 +17,11 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
   const getUserName = (r: UserRole): string => {
     switch (r) {
       case 'admin':
-        return 'Sarah Jenkins (Admin)';
+        return 'Nova (Admin)';
       case 'auditor':
-        return 'Elena Rostova (Auditor)';
+        return 'Jagan (Auditor)';
       case 'employee':
-        return 'Alex Rivera (Employee)';
+        return 'Komal (Employee)';
       default:
         return 'Guest User';
     }

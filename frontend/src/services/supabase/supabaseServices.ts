@@ -31,7 +31,7 @@ async function resolveLoggedInEmployeeId(): Promise<string> {
   const { data } = await supabase
     .from('employees')
     .select('id')
-    .eq('email', 'alex@ecosphere.com')
+    .eq('email', 'komal@ecosphere.com')
     .maybeSingle();
   if (data?.id) return data.id;
 
@@ -927,8 +927,11 @@ export class SupabaseNotificationService implements NotificationRepository {
 export class SupabaseDashboardService implements DashboardRepository {
   async getDashboardStats(): Promise<DashboardStats> {
     // 1. Fetch company wide ESG score
-    const { data: overallScoreRow } = await supabase.from('v_company_esg_score').select('overall_score').maybeSingle();
-    const overallScore = overallScoreRow?.overall_score ? Number(overallScoreRow.overall_score) : 79.0;
+    const { data: scoreRow } = await supabase.from('v_company_esg_score').select('*').maybeSingle();
+    const overallScore = scoreRow?.overall_score ? Number(scoreRow.overall_score) : 79.0;
+    const environmentalScore = scoreRow?.environmental_score ? Number(scoreRow.environmental_score) : 82.5;
+    const socialScore = scoreRow?.social_score ? Number(scoreRow.social_score) : 74.0;
+    const governanceScore = scoreRow?.governance_score ? Number(scoreRow.governance_score) : 79.2;
 
     // 2. Fetch Settings weights
     const { data: settings } = await supabase.from('settings').select('*').eq('id', 1).single();
@@ -959,9 +962,9 @@ export class SupabaseDashboardService implements DashboardRepository {
 
     return {
       overallScore,
-      environmentalScore: 82.5, // approximate base rating scores
-      socialScore: 74.0,
-      governanceScore: 79.2,
+      environmentalScore,
+      socialScore,
+      governanceScore,
       weights,
       scoreDelta: 2.8,
       carbonEmissionYtd: Number((totalCO2 / 1000).toFixed(1)), // convert kg to metric tons

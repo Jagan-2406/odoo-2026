@@ -229,3 +229,10 @@ class handler(BaseHTTPRequestHandler):
         wb.save(buf)
         buf.seek(0)
         return buf
+
+if __name__ == '__main__':
+    from http.server import HTTPServer
+    server = HTTPServer(('localhost', 3000), handler)
+    print("Local report API server running at http://localhost:3000/api/report")
+    print("Press Ctrl+C to stop.")
+    server.serve_forever()

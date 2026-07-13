@@ -140,39 +140,41 @@ export const LoginPage = () => {
         )}
 
         {step === 'email' ? (
-          <form onSubmit={handleSendOTP} className="space-y-4">
-            <div className="flex flex-col gap-1.5 text-xs">
-              <label className="font-semibold text-zinc-400 uppercase tracking-wide">Corporate Email</label>
-              <div className="relative flex items-center">
-                <Mail className="absolute left-3 h-4.5 w-4.5 text-zinc-500 pointer-events-none" />
-                <input
-                  type="email"
-                  required
-                  placeholder="name@company.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                  className="w-full h-10 pl-10 pr-3 bg-zinc-950/40 border border-border text-sm rounded-lg text-zinc-200 focus-visible:outline-none focus:border-zinc-500 disabled:opacity-50"
-                />
+          <>
+            <form onSubmit={handleSendOTP} className="space-y-4">
+              <div className="flex flex-col gap-1.5 text-xs">
+                <label className="font-semibold text-zinc-400 uppercase tracking-wide">Corporate Email</label>
+                <div className="relative flex items-center">
+                  <Mail className="absolute left-3 h-4.5 w-4.5 text-zinc-500 pointer-events-none" />
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={loading}
+                    className="w-full h-10 pl-10 pr-3 bg-zinc-950/40 border border-border text-sm rounded-lg text-zinc-200 focus-visible:outline-none focus:border-zinc-500 disabled:opacity-50"
+                  />
+                </div>
               </div>
-            </div>
 
-            <Button
-              type="submit"
-              variant="primary"
-              size="md"
-              className="w-full"
-              isLoading={loading}
-              rightIcon={<ArrowRight className="h-4 w-4" />}
-            >
-              Get OTP Code
-            </Button>
-          </form>
-          <div className="pt-4 border-t border-border/50 text-[10px] text-zinc-500 space-y-1.5 font-mono">
-            <div className="font-semibold text-zinc-400 uppercase tracking-wider">Evaluation Credentials:</div>
-            <div>🛡️ <span className="text-teal-400 font-semibold">Demo Admin:</span> admin@ecosphere.com / Code: 12345</div>
-            <div>👤 <span className="text-indigo-400 font-semibold">Real Login:</span> Enter your personal email address for OTP delivery.</div>
-          </div>
+              <Button
+                type="submit"
+                variant="primary"
+                size="md"
+                className="w-full"
+                isLoading={loading}
+                rightIcon={<ArrowRight className="h-4 w-4" />}
+              >
+                Get OTP Code
+              </Button>
+            </form>
+            <div className="pt-4 border-t border-border/50 text-[10px] text-zinc-500 space-y-1.5 font-mono">
+              <div className="font-semibold text-zinc-400 uppercase tracking-wider">Evaluation Credentials:</div>
+              <div>🛡️ <span className="text-teal-400 font-semibold">Demo Admin:</span> admin@ecosphere.com / Code: 12345</div>
+              <div>👤 <span className="text-indigo-400 font-semibold">Real Login:</span> Enter your personal email address for OTP delivery.</div>
+            </div>
+          </>
         ) : (
           <form onSubmit={handleVerifyOTP} className="space-y-4">
             <div className="flex flex-col gap-1.5 text-xs">

@@ -22,7 +22,7 @@ export const LoginPage = () => {
     setError(null);
     setMessage(null);
 
-    // Bypass check for admin demo account
+    // Only allow the pre-configured admin demo email
     if (email.toLowerCase() === 'admin@ecosphere.com') {
       setTimeout(() => {
         setMessage('A 5-digit verification code has been sent to admin@ecosphere.com');
@@ -32,23 +32,8 @@ export const LoginPage = () => {
       return;
     }
 
-    try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          shouldCreateUser: true, // Auto-signs up new users!
-        }
-      });
-
-      if (error) throw error;
-
-      setMessage(`A 6-digit verification code has been sent to ${email}`);
-      setStep('otp');
-    } catch (err: any) {
-      setError(err.message || 'Failed to send verification code. Try again.');
-    } finally {
-      setLoading(false);
-    }
+    setError("Evaluation Mode: Only 'admin@ecosphere.com' is allowed for login.");
+    setLoading(false);
   };
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
@@ -172,7 +157,6 @@ export const LoginPage = () => {
             <div className="pt-4 border-t border-border/50 text-[10px] text-zinc-500 space-y-1.5 font-mono">
               <div className="font-semibold text-zinc-400 uppercase tracking-wider">Evaluation Credentials:</div>
               <div>🛡️ <span className="text-teal-400 font-semibold">Demo Admin:</span> admin@ecosphere.com / Code: 12345</div>
-              <div>👤 <span className="text-indigo-400 font-semibold">Real Login:</span> Enter your personal email address for OTP delivery.</div>
             </div>
           </>
         ) : (

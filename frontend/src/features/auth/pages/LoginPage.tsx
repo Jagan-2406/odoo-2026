@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../services/supabaseClient';
 import { Button } from '../../../components/common/Button';
 import { KeyRound, Mail, ShieldAlert, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useRoleContext } from '../../../context/RoleContext';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const { profile, loading: authLoading } = useRoleContext();
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   
@@ -14,6 +16,13 @@ export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Redirect to dashboard once profile is authenticated and loaded
+  useEffect(() => {
+    if (profile && !authLoading) {
+      navigate('/');
+    }
+  }, [profile, authLoading, navigate]);
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();

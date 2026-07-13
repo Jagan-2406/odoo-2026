@@ -52,6 +52,7 @@ export const RoleProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const resolveProfile = async (currentSession: any) => {
+    setLoading(true);
     if (!currentSession?.user) {
       setProfile(null);
       setRoleState('employee'); // default fallback

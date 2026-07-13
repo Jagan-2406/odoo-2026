@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Bell, Menu, Search, User } from 'lucide-react';
 import { Avatar } from '../common/Avatar';
+import { useRoleContext } from '../../context/RoleContext';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 
@@ -36,6 +37,7 @@ export const Navbar = ({
   onToggleSidebar,
   onLogout,
 }: NavbarProps) => {
+  const { profile } = useRoleContext();
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [showNotificationMenu, setShowNotificationMenu] = useState(false);
   const unreadCount = notifications.filter((n) => !n.isRead).length;
@@ -143,28 +145,32 @@ export const Navbar = ({
 
           {showRoleMenu && (
             <div className="absolute right-0 mt-2 w-48 rounded-md border border-border bg-card shadow-2xl z-50 overflow-hidden text-sm">
-              <div className="px-4 py-2 border-b border-border font-medium text-xs text-zinc-500">
-                Switch Platform Role
-              </div>
-              <div className="p-1 flex flex-col gap-0.5">
-                {(['admin', 'employee', 'auditor'] as const).map((role) => (
-                  <button
-                    key={role}
-                    onClick={() => {
-                      onRoleChange(role);
-                      setShowRoleMenu(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 rounded text-xs capitalize transition-colors ${
-                      userRole === role
-                        ? 'bg-zinc-900 text-emerald-400 font-semibold'
-                        : 'text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200'
-                    }`}
-                  >
-                    {role} View
-                  </button>
-                ))}
-              </div>
-              <div className="border-t border-border mt-1 p-1">
+              {profile?.role === 'admin' && (
+                <>
+                  <div className="px-4 py-2 border-b border-border font-medium text-xs text-zinc-500">
+                    Switch Platform Role
+                  </div>
+                  <div className="p-1 flex flex-col gap-0.5 border-b border-border/60">
+                    {(['admin', 'employee', 'auditor'] as const).map((role) => (
+                      <button
+                        key={role}
+                        onClick={() => {
+                          onRoleChange(role);
+                          setShowRoleMenu(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded text-xs capitalize transition-colors ${
+                          userRole === role
+                            ? 'bg-zinc-900 text-emerald-400 font-semibold'
+                            : 'text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200'
+                        }`}
+                      >
+                        {role} View
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+              <div className="p-1">
                 <button
                   onClick={() => {
                     onLogout?.();

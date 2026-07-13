@@ -103,7 +103,7 @@ export const LoginPage = () => {
           </h2>
           <p className="text-xs text-zinc-400 max-w-xs mx-auto">
             {step === 'email' 
-              ? 'Enter your email address to receive a 6-digit OTP code to login or sign up.'
+              ? 'Enter your email address to receive a 5-digit verification code.'
               : `Type the verification code we sent to your inbox.`
             }
           </p>
@@ -162,12 +162,12 @@ export const LoginPage = () => {
         ) : (
           <form onSubmit={handleVerifyOTP} className="space-y-4">
             <div className="flex flex-col gap-1.5 text-xs">
-              <label className="font-semibold text-zinc-400 uppercase tracking-wide">6-Digit Code</label>
+              <label className="font-semibold text-zinc-400 uppercase tracking-wide">5-Digit Code</label>
               <input
                 type="text"
                 required
-                maxLength={6}
-                placeholder="e.g. 123456"
+                maxLength={5}
+                placeholder="e.g. 12345"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
                 disabled={loading}

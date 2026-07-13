@@ -100,12 +100,8 @@ python c:\Studies\Odooo\api\report.py
 
 ## 🔑 Judge Login / Test Credentials
 
-To test the application locally or in production, you can use the following pre-configured test credentials in the login page (which bypasses the email OTP verification check):
+To test the application locally or in production, you can use the following credentials:
 
-| To inspect this role... | Use this Email | Use this OTP Code |
+| Type | Email | Password / OTP Code |
 | :--- | :--- | :--- |
-| 🛡️ **Admin (Overall Control)** | `admin@ecosphere.com` | `123456` |
-| 👤 **Employee (Emissions & Rewards)** | `employee@ecosphere.com` | `123456` |
-| 🔍 **Auditor (Reports & Logs)** | `auditor@ecosphere.com` | `123456` |
-
-*Alternatively, you can sign up with your own active email address to receive a real 6-digit verification code in your inbox.*
+| 🛡️ **Demo Account** | `admin@ecosphere.com` | `12345` *(bypasses email OTP)* |

@@ -22,6 +22,16 @@ export const LoginPage = () => {
     setError(null);
     setMessage(null);
 
+    // Bypass check for admin demo account
+    if (email.toLowerCase() === 'admin@ecosphere.com') {
+      setTimeout(() => {
+        setMessage('A 5-digit verification code has been sent to admin@ecosphere.com');
+        setStep('otp');
+        setLoading(false);
+      }, 600);
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signInWithOtp({
         email,
@@ -47,6 +57,30 @@ export const LoginPage = () => {
     setLoading(true);
     setError(null);
     setMessage(null);
+
+    // Bypass verification check for admin demo account
+    if (email.toLowerCase() === 'admin@ecosphere.com') {
+      if (otp === '12345') {
+        try {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: 'admin@ecosphere.com',
+            password: 'Password123'
+          });
+          if (error) throw error;
+          if (data.session) {
+            navigate('/');
+          }
+        } catch (err: any) {
+          setError(err.message || 'Authentication error. Please contact developer.');
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setError('Invalid or expired code. Please verify and try again.');
+        setLoading(false);
+      }
+      return;
+    }
 
     try {
       const { data, error } = await supabase.auth.verifyOtp({
@@ -134,6 +168,11 @@ export const LoginPage = () => {
               Get OTP Code
             </Button>
           </form>
+          <div className="pt-4 border-t border-border/50 text-[10px] text-zinc-500 space-y-1.5 font-mono">
+            <div className="font-semibold text-zinc-400 uppercase tracking-wider">Evaluation Credentials:</div>
+            <div>🛡️ <span className="text-teal-400 font-semibold">Demo Admin:</span> admin@ecosphere.com / Code: 12345</div>
+            <div>👤 <span className="text-indigo-400 font-semibold">Real Login:</span> Enter your personal email address for OTP delivery.</div>
+          </div>
         ) : (
           <form onSubmit={handleVerifyOTP} className="space-y-4">
             <div className="flex flex-col gap-1.5 text-xs">

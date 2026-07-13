@@ -1095,9 +1095,10 @@ export class SupabaseReportsService implements ReportsRepository {
       }));
     }
 
-    // 2. Make POST call to local Python reports serverlessness exporter running on port 3000
+    // 2. Make POST call to Python reports exporter API
     try {
-      const response = await fetch('http://localhost:3000/api/report', {
+      const apiHost = (import.meta as any).env.VITE_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${apiHost}/api/report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

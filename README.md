@@ -1,5 +1,7 @@
 # 🌍 EcoSphere — Next-Generation ESG Management Platform
 
+> **Live Production URL**: [https://eco-sphere-web.vercel.app](https://eco-sphere-web.vercel.app)
+
 Welcome to **EcoSphere**, an end-to-end Environmental, Social, and Governance (ESG) Management & Compliance platform. EcoSphere enables modern enterprises to persistently log carbon transactions, engage employees through gamified sustainability challenges, enforce corporate policies, and generate comprehensive compliance reports.
 
 ---

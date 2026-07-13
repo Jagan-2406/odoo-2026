@@ -21,6 +21,7 @@ export interface NavbarProps {
   onNotificationClick?: (id: string) => void;
   onSearchChange?: (val: string) => void;
   onToggleSidebar?: () => void;
+  onLogout?: () => void;
 }
 
 export const Navbar = ({
@@ -33,6 +34,7 @@ export const Navbar = ({
   onNotificationClick,
   onSearchChange,
   onToggleSidebar,
+  onLogout,
 }: NavbarProps) => {
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [showNotificationMenu, setShowNotificationMenu] = useState(false);
@@ -161,6 +163,17 @@ export const Navbar = ({
                     {role} View
                   </button>
                 ))}
+              </div>
+              <div className="border-t border-border mt-1 p-1">
+                <button
+                  onClick={() => {
+                    onLogout?.();
+                    setShowRoleMenu(false);
+                  }}
+                  className="w-full text-left px-3 py-2 rounded text-xs text-red-400 hover:bg-red-500/10 transition-colors font-medium font-mono"
+                >
+                  Sign Out
+                </button>
               </div>
             </div>
           )}

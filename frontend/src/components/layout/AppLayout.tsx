@@ -53,6 +53,7 @@ export interface AppLayoutProps {
   notifications: NavbarNotification[];
   breadcrumbs: string[];
   avatarUrl?: string | null;
+  onLogout?: () => void;
 }
 
 export const AppLayout = ({
@@ -66,6 +67,7 @@ export const AppLayout = ({
   notifications,
   breadcrumbs,
   avatarUrl,
+  onLogout,
 }: AppLayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -113,6 +115,7 @@ export const AppLayout = ({
           onRoleChange={onRoleChange}
           onToggleSidebar={() => setMobileOpen(!mobileOpen)}
           onSearchChange={(val) => console.log('Searching:', val)}
+          onLogout={onLogout}
         />
         {/* Toggle bar for desktop collapse (ambient floating trigger) */}
         <div className="hidden md:flex justify-end px-6 py-1 border-b border-border bg-zinc-950/20">

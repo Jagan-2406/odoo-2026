@@ -46,15 +46,31 @@ const RouteLoadingSkeleton = () => (
   </div>
 );
 
-// Placeholder authentication protector (renders children as-is)
+import { LoginPage } from '../features/auth/pages/LoginPage';
+
+// Authentication protector guarding dashboard paths
 const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
+  const { profile, loading } = useRoleContext();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#090D16] flex items-center justify-center text-teal-400 text-xs font-mono tracking-wider animate-pulse">
+        CONNECTING TO SECURITY SESSION...
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return <Navigate to="/login" replace />;
+  }
+
   return <>{children}</>;
 };
 
 export const AppRoutes = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { role, setRole, userName } = useRoleContext();
+  const { role, setRole, userName, logout } = useRoleContext();
 
   // Sidebar list definitions
   const sidebarItems: SidebarNavItem[] = [
@@ -102,6 +118,7 @@ export const AppRoutes = () => {
               onRoleChange={(newRole) => setRole(newRole)}
               notifications={mockNotifications}
               breadcrumbs={getBreadcrumbs(location.pathname)}
+              onLogout={logout}
             >
               <Suspense fallback={<RouteLoadingSkeleton />}>
                 <OutletWrapper />
@@ -122,6 +139,7 @@ export const AppRoutes = () => {
         <Route path="500" element={<ServerErrorPage />} />
       </Route>
 
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/404" element={<NotFoundPage />} />
       <Route path="*" element={<Navigate to="/404" replace />} />
     </Routes>
